@@ -11,8 +11,13 @@ import UIKit
 class AnimalTableViewController: UITableViewController {
     let animals = ["Bear", "Black Swan", "Buffalo", "Camel", "Cockatoo", "Dog", "Donkey", "Emu", "Giraffe", "Greater Rhea", "Hippopotamus", "Horse", "Koala", "Lion", "Llama", "Manatus", "Meerkat", "Panda", "Peacock", "Pig", "Platypus", "Polar Bear", "Rhinoceros", "Seagull", "Tasmania Devil", "Whale", "Whale Shark", "Wombat"]
     
+    var animalsDict = [String: [String]]()
+    var animalsSectionTitles = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createAnimalsDict()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -55,3 +60,45 @@ class AnimalTableViewController: UITableViewController {
 
 
 }
+
+//MARK: Create Animals Dictionary
+
+extension AnimalTableViewController {
+    
+    func createAnimalsDict() {
+        for animal in animals {
+            //Get the first letter of the animal name and build the dictionary
+            let firstLetterIndex = animal.index(animal.startIndex, offsetBy: 1)
+            let animalKey = animal.substring(to: firstLetterIndex)
+            
+            if var animalValues = animalsDict[animalKey] {
+                animalValues.append(animal)
+                animalsDict[animalKey] = animalValues
+            } else {
+                animalsDict[animalKey] = [animal]
+            }
+            //Get the section titles from the dictionary's keys and sort them in ascending order
+            animalsSectionTitles = [String](animalsDict.keys)
+            animalsSectionTitles = animalsSectionTitles.sorted(by: { $0 < $1 })
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
