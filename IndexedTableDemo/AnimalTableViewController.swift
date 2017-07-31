@@ -69,6 +69,10 @@ class AnimalTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return animalsSectionTitles[section]
     }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return animalsSectionTitles
+    }
 
 }
 
